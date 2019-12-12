@@ -84,7 +84,6 @@ if [ "$action" == 'create' ]
 				Require all granted
 
                 AuthType Basic
-                AuthName "Restricted Content"
                 AuthUserFile /etc/apache2/.htpasswd
                 Require valid-user
 			</Directory>
