@@ -79,9 +79,14 @@ if [ "$action" == 'create' ]
 				AllowOverride All
 			</Directory>
 			<Directory $rootDir>
-				Options Indexes FollowSymLinks MultiViews
+				Options FollowSymLinks MultiViews
 				AllowOverride all
 				Require all granted
+
+                AuthType Basic
+                AuthName "Restricted Content"
+                AuthUserFile /etc/apache2/.htpasswd
+                Require valid-user
 			</Directory>
 			ErrorLog /var/log/apache2/$domain-error.log
 			LogLevel error
