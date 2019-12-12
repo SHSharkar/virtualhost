@@ -8,7 +8,7 @@ domain=$2
 rootDir=$3
 owner=$(who am i | awk '{print $1}')
 apacheUser=$(ps -ef | egrep '(httpd|apache2|apache)' | grep -v root | head -n1 | awk '{print $1}')
-email='webmaster@localhost'
+email='sh@sharkar.net'
 sitesEnabled='/etc/apache2/sites-enabled/'
 sitesAvailable='/etc/apache2/sites-available/'
 userDir='/var/www/'
@@ -82,10 +82,6 @@ if [ "$action" == 'create' ]
 				Options FollowSymLinks MultiViews
 				AllowOverride all
 				Require all granted
-
-                AuthType Basic
-                AuthUserFile /etc/apache2/.htpasswd
-                Require valid-user
 			</Directory>
 			ErrorLog /var/log/apache2/$domain-error.log
 			LogLevel error
@@ -97,26 +93,6 @@ if [ "$action" == 'create' ]
 		else
 			echo -e $"\nNew Virtual Host Created\n"
 		fi
-
-		### Add domain in /etc/hosts
-		##if ! echo "127.0.0.1	$domain" >> /etc/hosts
-		##then
-			##echo $"ERROR: Not able to write in /etc/hosts"
-			##exit;
-		##else
-			##echo -e $"Host added to /etc/hosts file \n"
-		##fi
-
-		### Add domain in /mnt/c/Windows/System32/drivers/etc/hosts (Windows Subsytem for Linux)
-		##if [ -e /mnt/c/Windows/System32/drivers/etc/hosts ]
-		##then
-			##if ! echo -e "\r127.0.0.1       $domain" >> /mnt/c/Windows/System32/drivers/etc/hosts
-			##then
-				##echo $"ERROR: Not able to write in /mnt/c/Windows/System32/drivers/etc/hosts (Hint: Try running Bash as administrator)"
-			##else
-				##echo -e $"Host added to /mnt/c/Windows/System32/drivers/etc/hosts file \n"
-			##fi
-		##fi
 
 		if [ "$owner" == "" ]; then
 			iam=$(whoami)
@@ -144,17 +120,6 @@ if [ "$action" == 'create' ]
 			echo -e $"This domain does not exist.\nPlease try another one"
 			exit;
 		else
-			### Delete domain in /etc/hosts
-			newhost=${domain//./\\.}
-			sed -i "/$newhost/d" /etc/hosts
-
-			### Delete domain in /mnt/c/Windows/System32/drivers/etc/hosts (Windows Subsytem for Linux)
-			if [ -e /mnt/c/Windows/System32/drivers/etc/hosts ]
-			then
-				newhost=${domain//./\\.}
-				sed -i "/$newhost/d" /mnt/c/Windows/System32/drivers/etc/hosts
-			fi
-
 			### disable website
 			a2dissite $domain
 
