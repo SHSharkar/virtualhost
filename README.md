@@ -23,10 +23,10 @@ $ sudo cp /path/to/virtualhost.sh /usr/local/bin/virtualhost
 
 ```bash
 $ cd /usr/local/bin
-$ wget -O virtualhost https://raw.githubusercontent.com/SHSharkar/virtualhost/master/virtualhost.sh
-$ chmod +x virtualhost
-$ wget -O virtualhost-nginx https://raw.githubusercontent.com/SHSharkar/virtualhost/master/virtualhost-nginx.sh
-$ chmod +x virtualhost-nginx
+$ sudo wget -O virtualhost https://raw.githubusercontent.com/SHSharkar/virtualhost/master/virtualhost.sh
+$ sudo chmod +x virtualhost
+$ sudo wget -O virtualhost-nginx https://raw.githubusercontent.com/SHSharkar/virtualhost/master/virtualhost-nginx.sh
+$ sudo chmod +x virtualhost-nginx
 ```
 
 ## Usage ##
